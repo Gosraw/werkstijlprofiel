@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><style>*,*::before,*::after{box-sizing:border-box}body{margin:0}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style></head><body>
+<title>Werkstijlprofiel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: two acts. Act 1 is a calm, credible HR assessment in one centered column.
+   Act 2 flips to a loud yellow-and-black reveal. Single light look per act, by choice. */
+:root {
+  --bg: #F4F6F5;
+  --panel: #FFFFFF;
+  --ink: #18232A;
+  --muted: #5E6B72;
+  --line: #DCE3E1;
+  --brand: #0F5C59;
+  --brand-soft: #E3EFEC;
+  --brand-ink: #FFFFFF;
+  --agree: #12805F;
+  --disagree: #7D4CB0;
+  --kut-bg: #FFE500;
+  --kut-ink: #0A0A0A;
+  --kut-red: #E3001B;
+  --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --shout: "Anton", Impact, "Arial Narrow Bold", sans-serif;
+  color-scheme: light;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; padding-inline: 16px; min-height: 100%; }
+body.dark { background: var(--kut-ink); }
+body.kut { background: var(--kut-bg); color: var(--kut-ink); }
+
+.top { max-width: 640px; margin: 0 auto; display: flex; align-items: center; gap: 10px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+.top svg { width: 28px; height: 28px; flex: none; }
+.top b { font-weight: 700; letter-spacing: -.01em; }
+.tag { font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); background: var(--brand-soft); padding: 3px 8px; border-radius: 999px; }
+.top .right { margin-left: auto; font-size: .82rem; color: var(--muted); }
+body.dark .top, body.kut .top { display: none; }
+
+main { max-width: 640px; margin: 0 auto; padding-block: 32px 56px; }
+.screen { display: grid; gap: 22px; animation: fade .35s ease both; }
+@keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Intro */
+.eyebrow { margin: 0; font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--brand); }
+h1 { margin: 0; font-size: clamp(1.9rem, 6vw, 2.5rem); line-height: 1.15; letter-spacing: -.02em; text-wrap: balance; }
+.lead { margin: 0; font-size: 1.08rem; color: var(--muted); max-width: 52ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0; padding: 0; list-style: none; font-size: .9rem; color: var(--muted); }
+.facts li { display: flex; align-items: center; gap: 8px; }
+.facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brand); }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 14px; }
+.panel p { margin: 0; font-size: .92rem; color: var(--muted); }
+label.field { display: grid; gap: 6px; font-weight: 600; font-size: .92rem; }
+label.field input { font: 400 16px var(--sans); padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--panel); }
+.btn { font: 600 1rem var(--sans); background: var(--brand); color: var(--brand-ink); border: 0; border-radius: 8px; padding: 14px 22px; cursor: pointer; justify-self: start; touch-action: manipulation; }
+.btn:hover { filter: brightness(1.1); }
+.btn:focus-visible, input:focus-visible, .dot:focus-visible, .link:focus-visible { outline: 3px solid var(--agree); outline-offset: 2px; }
+.small { font-size: .8rem; color: var(--muted); margin: 0; }
+
+/* Questions */
+.progress { display: grid; gap: 8px; }
+.progress .meta { display: flex; justify-content: space-between; font-size: .85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.progress .bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.progress .bar i { display: block; height: 100%; background: var(--brand); transition: width .4s ease; }
+.statement { margin: 0; font-size: clamp(1.3rem, 4.6vw, 1.65rem); line-height: 1.3; font-weight: 600; letter-spacing: -.01em; text-wrap: balance; min-height: 3.9em; }
+.likert { display: grid; gap: 10px; }
+.dots { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.dot { border-radius: 50%; border: 2.5px solid; background: var(--panel); cursor: pointer; padding: 0; flex: none; transition: transform .15s, background-color .15s; touch-action: manipulation; }
+.dot:hover { transform: scale(1.08); }
+.dot[data-v="1"] { width: 52px; height: 52px; border-color: var(--disagree); }
+.dot[data-v="2"] { width: 42px; height: 42px; border-color: var(--disagree); }
+.dot[data-v="3"] { width: 32px; height: 32px; border-color: var(--muted); }
+.dot[data-v="4"] { width: 42px; height: 42px; border-color: var(--agree); }
+.dot[data-v="5"] { width: 52px; height: 52px; border-color: var(--agree); }
+.dot.on[data-v="1"], .dot.on[data-v="2"] { background: var(--disagree); }
+.dot.on[data-v="3"] { background: var(--muted); }
+.dot.on[data-v="4"], .dot.on[data-v="5"] { background: var(--agree); }
+.ends { display: flex; justify-content: space-between; font-size: .85rem; font-weight: 600; }
+.ends span:first-child { color: var(--disagree); }
+.ends span:last-child { color: var(--agree); }
+.link { background: none; border: 0; padding: 0; font: 500 .9rem var(--sans); color: var(--muted); cursor: pointer; text-decoration: underline; justify-self: start; }
+.link:disabled { visibility: hidden; }
+
+/* Calculating */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.steps li { display: flex; gap: 12px; align-items: center; color: var(--muted); }
+.steps li.done { color: var(--ink); }
+.steps i { width: 20px; height: 20px; border-radius: 50%; border: 2.5px solid var(--line); border-top-color: var(--brand); flex: none; animation: spin .8s linear infinite; }
+.steps li.wait i { animation: none; border-top-color: var(--line); }
+.steps li.done i { animation: none; border-color: var(--agree); background: var(--agree); box-shadow: inset 0 0 0 3px var(--panel); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Reveal */
+.pre { min-height: 70vh; display: grid; place-items: center; text-align: center; color: var(--brand-ink); font-size: 1.5rem; font-weight: 600; }
+.pre span { display: inline-block; min-width: 4.5ch; text-align: left; }
+.result { gap: 20px; text-align: center; justify-items: center; padding-bottom: 24px; }
+.pre-small { margin: 0; font-weight: 700; font-size: 1rem; letter-spacing: .1em; text-transform: uppercase; }
+.bigkut {
+  margin: 0; font-family: var(--shout); font-weight: 400; line-height: .9; white-space: nowrap;
+  font-size: clamp(5rem, 27vw, 12rem); color: var(--kut-ink);
+  text-shadow: .045em .045em 0 var(--kut-red);
+  animation: slam .5s cubic-bezier(.2,1.6,.4,1) both;
+}
+.bigkut span { display: inline-block; animation: jitter .18s steps(2) infinite; }
+.bigkut span:nth-child(2) { animation-delay: .05s; }
+.bigkut span:nth-child(3) { animation-delay: .1s; }
+.bigkut span:nth-child(4) { animation-delay: .15s; }
+@keyframes slam { from { transform: scale(4) rotate(-14deg); opacity: 0; } to { transform: rotate(-3deg); opacity: 1; } }
+@keyframes jitter { 0% { transform: translate(0, 0) rotate(0); } 50% { transform: translate(2px, -3px) rotate(3deg); } 100% { transform: translate(-2px, 2px) rotate(-3deg); } }
+.ticker { width: calc(100% + 32px); margin-inline: -16px; overflow: hidden; background: var(--kut-red); color: var(--brand-ink); font-family: var(--shout); font-size: 1.35rem; letter-spacing: .04em; padding-block: 8px; transform: rotate(-2deg); }
+.ticker div { display: flex; width: max-content; animation: ticker 9s linear infinite; }
+.ticker span { white-space: pre; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+.wall { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; font-size: clamp(2.4rem, 13vw, 3.6rem); line-height: 1.1; width: 100%; max-width: 420px; }
+.wall span { display: inline-block; animation: wave .7s ease-in-out infinite alternate; }
+.wall span:nth-child(2n) { animation-delay: .2s; }
+.wall span:nth-child(3n) { animation-delay: .4s; }
+@keyframes wave { from { transform: translateY(0) rotate(-10deg); } to { transform: translateY(-8px) rotate(10deg) scale(1.08); } }
+.laugh { margin: 0; font-family: var(--shout); font-size: clamp(2rem, 10vw, 3rem); line-height: 1.05; text-wrap: balance; }
+.laugh .e { font-size: 1.2em; }
+.badge { font-family: var(--shout); font-size: 1.6rem; line-height: 1; color: var(--kut-red); border: 5px solid var(--kut-red); padding: 10px 16px; transform: rotate(-8deg); letter-spacing: .03em; }
+.badge small { display: block; font-family: var(--sans); font-weight: 800; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; margin-top: 6px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.result .btn { background: var(--kut-ink); color: var(--kut-bg); border-radius: 0; font-family: var(--shout); font-weight: 400; font-size: 1.2rem; letter-spacing: .04em; padding: 14px 20px; justify-self: center; }
+.result .btn.alt { background: var(--kut-red); color: var(--brand-ink); }
+.result .btn.object { background: var(--panel); color: var(--kut-ink); border: 3px solid var(--kut-ink); }
+.copied { margin: 0; font-size: .85rem; font-weight: 700; min-height: 1.3em; overflow-wrap: anywhere; user-select: all; }
+.tap { margin: 0; font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.shake { animation: shake .5s; }
+@keyframes shake { 10%, 90% { transform: translate(-2px, 1px); } 20%, 80% { transform: translate(4px, -2px); } 30%, 50%, 70% { transform: translate(-9px, 3px); } 40%, 60% { transform: translate(9px, -3px); } }
+
+canvas#rain { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 20; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before { animation: none !important; transition: none !important; }
+}
+</style>
+
+<header class="top">
+  <svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="#E3EFEC"/><path d="M7 17a7 7 0 0 1 14 0" fill="none" stroke="#0F5C59" stroke-width="2.5" stroke-linecap="round"/><circle cx="14" cy="17" r="2.5" fill="#0F5C59"/></svg>
+  <b>Werkstijlprofiel</b><span class="tag">Pilot</span>
+  <span class="right">v0.9</span>
+</header>
+<main id="main"></main>
+<canvas id="rain" hidden></canvas>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const main = $("main");
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+const QUESTIONS = [
+  "Ik voel me prettig wanneer ik de leiding neem in een groep.",
+  "Na een drukke dag heb ik tijd voor mezelf nodig om op te laden.",
+  "Ik vind het makkelijk om feedback te geven aan collega's.",
+  "Deadlines motiveren mij om beter te presteren.",
+  "Ik neem beslissingen eerder op gevoel dan op basis van feiten.",
+  "Ik zou mezelf omschrijven als een prettig persoon om mee samen te werken.",
+];
+let name = "";
+let answers = [];
+let attempt = 0;
+
+function show(html) {
+  main.innerHTML = `<section class="screen">${html}</section>`;
+  scrollTo(0, 0);
+}
+
+/* Act 1 — intro */
+function intro() {
+  show(`
+    <p class="eyebrow">Werkstijlanalyse · pilot</p>
+    <h1>Ontdek in 1 minuut hoe jij samenwerkt, beslist en communiceert.</h1>
+    <p class="lead">Korte pilot van een nieuwe vragenlijst. Geen goede of foute antwoorden: kies wat het eerst in je opkomt.</p>
+    <ul class="facts">
+      <li>6 stellingen</li>
+      <li>± 1 minuut</li>
+      <li>Gebaseerd op het Big Five-model</li>
+    </ul>
+    <form class="panel" id="start">
+      <label class="field" for="name">Voornaam <span class="small">Voor je persoonlijke uitslag.</span>
+        <input id="name" type="text" autocomplete="given-name" placeholder="Bijv. Sanne" maxlength="40">
+      </label>
+      <button class="btn">Start de test</button>
+      <p class="small">Je antwoorden worden anoniem verwerkt en niet gedeeld.</p>
+    </form>`);
+  $("start").addEventListener("submit", (e) => {
+    e.preventDefault();
+    name = $("name").value.trim();
+    answers = [];
+    question(0);
+  });
+}
+
+/* Act 1 — questions */
+function question(i) {
+  const left = (QUESTIONS.length - i) * 8;
+  show(`
+    <div class="progress">
+      <div class="meta"><span>Vraag ${i + 1} van ${QUESTIONS.length}</span><span>± ${left} sec resterend</span></div>
+      <div class="bar"><i style="width:${(i / QUESTIONS.length) * 100}%"></i></div>
+    </div>
+    <h2 class="statement">${QUESTIONS[i]}</h2>
+    <div class="likert" role="radiogroup" aria-label="In hoeverre ben je het hiermee eens?">
+      <div class="dots">
+        ${[1, 2, 3, 4, 5].map((v) => `<button class="dot ${answers[i] === v ? "on" : ""}" data-v="${v}" role="radio" aria-checked="${answers[i] === v}"
+          aria-label="${["Helemaal oneens", "Oneens", "Neutraal", "Eens", "Helemaal eens"][v - 1]}"></button>`).join("")}
+      </div>
+      <div class="ends"><span>Oneens</span><span>Eens</span></div>
+    </div>
+    <button class="link" id="back" ${i === 0 ? "disabled" : ""}>Vorige vraag</button>`);
+  main.querySelectorAll(".dot").forEach((d) => d.addEventListener("click", () => {
+    main.querySelectorAll(".dot").forEach((x) => { x.classList.remove("on"); x.setAttribute("aria-checked", "false"); });
+    d.classList.add("on");
+    d.setAttribute("aria-checked", "true");
+    answers[i] = +d.dataset.v;
+    unlockAudio();
+    setTimeout(() => (i + 1 < QUESTIONS.length ? question(i + 1) : calculate()), 180);
+  }));
+  $("back").addEventListener("click", () => question(i - 1));
+}
+
+/* Act 1 — fake calculation */
+async function calculate() {
+  stopFx();
+  document.body.className = "";
+  const steps = ["Antwoorden analyseren", "Vergelijken met 12.483 profielen", "Persoonlijkheidstype bepalen"];
+  show(`
+    <p class="eyebrow">Bijna klaar</p>
+    <h1>Je profiel wordt berekend…</h1>
+    <ul class="steps" id="steps">${steps.map((s) => `<li class="wait"><i></i>${s}</li>`).join("")}</ul>`);
+  const items = [...$("steps").children];
+  for (const li of items) {
+    li.className = "";
+    await sleep(550 + Math.random() * 250);
+    li.className = "done";
+  }
+  await sleep(250);
+  reveal();
+}
+
+/* Sound: unlocked on the answer taps, played at the reveal */
+let AC = null;
+function unlockAudio() {
+  try {
+    AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+    if (AC.state === "suspended") AC.resume();
+  } catch { AC = null; }
+}
+function airhorn() {
+  if (!AC) return;
+  const t0 = AC.currentTime + 0.02;
+  const master = AC.createGain();
+  master.gain.value = 0.16;
+  const lp = AC.createBiquadFilter();
+  lp.type = "lowpass"; lp.frequency.value = 2800;
+  lp.connect(master); master.connect(AC.destination);
+  for (const [start, dur] of [[0, 0.12], [0.17, 0.12], [0.34, 0.75]]) {
+    const g = AC.createGain();
+    g.gain.setValueAtTime(0, t0 + start);
+    g.gain.linearRampToValueAtTime(1, t0 + start + 0.015);
+    g.gain.setValueAtTime(1, t0 + start + dur - 0.05);
+    g.gain.linearRampToValueAtTime(0, t0 + start + dur);
+    g.connect(lp);
+    for (const f of [466, 471, 233, 699]) {
+      const o = AC.createOscillator();
+      o.type = "sawtooth"; o.frequency.value = f;
+      o.connect(g); o.start(t0 + start); o.stop(t0 + start + dur + 0.03);
+    }
+  }
+}
+function fart() {
+  if (!AC) return;
+  const t0 = AC.currentTime + 0.01, dur = 0.35 + Math.random() * 0.35;
+  const o = AC.createOscillator(), lfo = AC.createOscillator(), depth = AC.createGain();
+  const lp = AC.createBiquadFilter(), g = AC.createGain();
+  o.type = "sawtooth";
+  o.frequency.setValueAtTime(95 + Math.random() * 30, t0);
+  o.frequency.linearRampToValueAtTime(60, t0 + dur);
+  lfo.type = "square"; lfo.frequency.value = 22 + Math.random() * 10;
+  depth.gain.value = 35;
+  lfo.connect(depth); depth.connect(o.frequency);
+  lp.type = "lowpass"; lp.frequency.value = 420;
+  g.gain.setValueAtTime(0, t0);
+  g.gain.linearRampToValueAtTime(0.5, t0 + 0.03);
+  g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  o.connect(lp); lp.connect(g); g.connect(AC.destination);
+  o.start(t0); lfo.start(t0); o.stop(t0 + dur + 0.05); lfo.stop(t0 + dur + 0.05);
+}
+
+/* Act 2 — the reveal */
+const EMO = ["🖕", "🖕", "🖕", "🖕", "💩", "🤡", "🫵", "😂"];
+const pick = (a) => a[Math.floor(Math.random() * a.length)];
+const reduceMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function flash() {
+  if (reduceMotion()) return;
+  const seq = ["var(--kut-red)", "var(--kut-ink)", "var(--kut-bg)", "var(--kut-red)", ""];
+  seq.forEach((c, i) => setTimeout(() => { document.body.style.background = c; }, i * 90));
+}
+
+async function reveal() {
+  attempt++;
+  stopFx();
+  document.body.className = "dark";
+  main.innerHTML = `<section class="screen"><p class="pre"><span>Jouw persoonlijkheid is<span id="dots"></span></span></p></section>`;
+  for (let i = 0; i < 7; i++) { await sleep(160); $("dots").textContent += "."; }
+  await sleep(300);
+
+  document.body.className = "kut";
+  flash();
+  airhorn();
+  try { navigator.vibrate && navigator.vibrate([120, 60, 120, 60, 400]); } catch {}
+
+  const lines = attempt === 1
+    ? ["Je trapte erin", "🫵😂"]
+    : [`Poging ${attempt}. Nog steeds kut.`, "🫵😂"];
+  const who = (name || "deze persoon").toUpperCase();
+  const tick = `BREAKING: ${who} IS OFFICIEEL KUT  ✦  WETENSCHAPPELIJK BEWEZEN  ✦  ER IS NIKS AAN TE DOEN  ✦  `;
+  const wall = (n) => Array.from({ length: n }, (_, i) => `<span>${i % 7 === 3 ? "🤡" : "🖕"}</span>`).join("");
+  main.innerHTML = `<section class="screen result">
+    <p class="pre-small">Jouw persoonlijkheid is</p>
+    <h1 class="bigkut" aria-label="Kut">KU<span>T</span><span>T</span><span>T</span><span>T</span></h1>
+    <div class="ticker" aria-hidden="true"><div><span id="t1"></span><span id="t2"></span></div></div>
+    <div class="wall" aria-hidden="true">${wall(10)}</div>
+    <p class="laugh">${lines[0]} <span class="e">${lines[1]}</span></p>
+    <div class="badge">100% KUT<small>Officieel gecertificeerd</small></div>
+    <button class="btn object" id="object">Ik ben het hier niet mee eens</button>
+    <div class="wall" aria-hidden="true">${wall(10)}</div>
+    <div class="actions">
+      <button class="btn" id="again">Nog een keer</button>
+      <button class="btn alt" id="share">Stuur naar een vriend</button>
+    </div>
+    <p class="copied" id="copied"></p>
+    <p class="tap">Tik op het scherm voor meer liefde 🖕</p>
+  </section>`;
+  $("t1").textContent = tick.repeat(2);
+  $("t2").textContent = tick.repeat(2);
+  main.classList.remove("shake"); void main.offsetWidth; main.classList.add("shake");
+  rain(70);
+
+  const replies = ["Bezwaar afgewezen.", "Nog steeds kut.", "Stop.", "Echt stoppen.", "KUT.", "Oké, nu ben je gewoon heel kut."];
+  let n = 0;
+  $("object").addEventListener("click", (e) => {
+    e.stopPropagation();
+    unlockAudio();
+    fart();
+    const r = e.currentTarget.getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top + r.height / 2, 18);
+    e.currentTarget.textContent = replies[Math.min(n++, replies.length - 1)];
+  });
+  $("again").addEventListener("click", (e) => {
+    e.stopPropagation();
+    unlockAudio();
+    calculate();
+  });
+  $("share").addEventListener("click", async (e) => {
+    e.stopPropagation();
+    const url = location.href.split("#")[0];
+    try {
+      await navigator.clipboard.writeText(url);
+      $("copied").textContent = "Link gekopieerd. Zeg dat het voor je werk is.";
+    } catch {
+      $("copied").textContent = url;
+    }
+  });
+}
+
+/* Emoji particles: rain from the top, bursts where you tap */
+const P = [];
+let fxAnim = null;
+function startLoop() {
+  const cv = $("rain");
+  if (cv.hidden) {
+    cv.hidden = false;
+  }
+  if (!fxAnim) fxAnim = requestAnimationFrame(loop);
+}
+function rain(n) {
+  if (reduceMotion()) return;
+  for (let i = 0; i < n; i++) {
+    P.push({ x: Math.random() * innerWidth, y: -60 - Math.random() * innerHeight * 1.4, vx: 0, vy: 2.5 + Math.random() * 4, g: 0,
+      r: Math.random() * 6.28, w: (Math.random() - 0.5) * 0.14, s: 24 + Math.random() * 34, e: pick(EMO) });
+  }
+  startLoop();
+}
+function burst(x, y, n = 10) {
+  if (reduceMotion()) return;
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2, sp = 3 + Math.random() * 7;
+    P.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 5, g: 0.28,
+      r: Math.random() * 6.28, w: (Math.random() - 0.5) * 0.3, s: 22 + Math.random() * 22, e: pick(EMO) });
+  }
+  startLoop();
+}
+function loop() {
+  const cv = $("rain"), ctx = cv.getContext("2d"), dpr = devicePixelRatio || 1;
+  if (cv.width !== innerWidth * dpr || cv.height !== innerHeight * dpr) { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  for (let i = P.length - 1; i >= 0; i--) {
+    const p = P[i];
+    p.vy += p.g; p.x += p.vx; p.y += p.vy; p.r += p.w;
+    if (p.y > innerHeight + 80) { P.splice(i, 1); continue; }
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.r);
+    ctx.font = `${p.s}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
+    ctx.fillText(p.e, 0, 0);
+    ctx.restore();
+  }
+  if (P.length) fxAnim = requestAnimationFrame(loop);
+  else { fxAnim = null; cv.getContext("2d").clearRect(0, 0, cv.width, cv.height); cv.hidden = true; }
+}
+function stopFx() {
+  P.length = 0;
+  cancelAnimationFrame(fxAnim);
+  fxAnim = null;
+  const cv = $("rain");
+  cv.getContext("2d").clearRect(0, 0, cv.width, cv.height);
+  cv.hidden = true;
+  document.body.style.background = "";
+}
+document.addEventListener("pointerdown", (e) => {
+  if (!document.body.classList.contains("kut")) return;
+  if (e.target.closest("button")) return;
+  burst(e.clientX, e.clientY, 12);
+});
+
+intro();
+
+</script>
+
+</body></html>
